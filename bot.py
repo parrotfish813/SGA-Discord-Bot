@@ -2,13 +2,15 @@ import discord
 from discord.ext import commands
 import openpyxl
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def run_discord_bot():
+
     intents = discord.Intents.all()  
 
     bot = commands.Bot(command_prefix='!', intents=intents)
-
-    # bot = discord.Client()
 
     @bot.event
     async def on_ready():
@@ -24,5 +26,14 @@ def run_discord_bot():
             channel = bot.get_channel(os.getenv("IMPORT_INFORMATION_CHANNEL_ID"))
             await channel.send(formatted_text)
 
-    bot.run(os.getenv("TOKEN"))
+    token = os.getenv("TOKEN")
+    print(f'Token: {token}')
 
+    id = os.getenv("IMPORT_INFORMATION_CHANNEL_ID")
+    print(f'ID: {id}')
+
+    if token is None:
+        print("Error: TOKEN environment variable is not set.")
+        return
+
+    bot.run(token)
