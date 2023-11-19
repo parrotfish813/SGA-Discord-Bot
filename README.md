@@ -1,18 +1,32 @@
 # SGA Discord Bot
 
+## How to use
+Commands can only be used in the cooresponding channels. 
+Synatax ```!positions_exec_board```
+
 ## Function List
-**positions_exec_board** - Updates the executive board positions from the member_list.xlsx file. Only works in the important_information channel.<br>
-**positions_exec_cabinet** - Updates the executive cabinet positions from the member_list.xlsx file. Only works in the important_information channel. <br>
-**positions_legislative** - Updates the legislative positions from the member_list.xlsx file. Only works in the important_information channel. <br>
-**positions_judicial** - Updates the judicial positions from the member_list.xlsx file. Only works in the important_information channel. <br>
+
+### Executive Commands
+**positions_exec_board** - Updates the executive board positions from the member_list.xlsx file.<br>
+**positions_exec_cabinet** - Updates the executive cabinet positions from the member_list.xlsx file.<br>
+**branch_info_exec** - Updates the branch information from the fomatted_text variable.<br>
+**nova_info** - Updates the department information from the cooresponding .docx file. <br>
+**internal_affairs_info** - Updates the department information from the cooresponding .docx file. <br>
+**external_affairs_info** - Updates the department information from the cooresponding .docx file. <br>
+**student_media_info** - Updates the department information from the cooresponding .docx file. <br>
+
+### Legislative Commands
+**positions_legislative** - Updates the legislative positions from the member_list.xlsx file.<br>
+**branch_info_legislative** - Updates the branch information from the cooresponding .docx file. <br>
+**lec_info** - Updates the committee information from the cooresponding .docx file. <br>
+**abc_info** - Updates the committee information from the cooresponding .docx file. <br>
+**acc_info** - Updates the committee information from the cooresponding .docx file. <br>
+**pec_info** - Updates the committee information from the cooresponding .docx file.<br>
+
+### Judicial Commands
+**positions_judicial** - Updates the judicial positions from the member_list.xlsx file.<br>
+**branch_info_judicial** - Updates the branch information from the cooresponding .docx file. <br>
+**judicial_info** - Updates the judicial information from the cooresponding .docx file. <br>
 
 
-**branch_info_exec** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
-**branch_info_media** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
-
-**branch_info_legislative** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
-**branch_info_lec** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
-**branch_info_abc** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
-**branch_info_acc** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
-**branch_info_pec** - Updates the branch information from the fomatted_text variable. Only works in the corresponding channel. <br>
 
