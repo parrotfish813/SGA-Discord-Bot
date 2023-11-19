@@ -4,8 +4,30 @@ from discord import Embed
 import openpyxl
 import os
 from dotenv import load_dotenv
+from docx import Document
 
 load_dotenv('.env')
+
+def get_data_from_word(path_to_file):
+    # Check if the file exists
+    if not os.path.exists(path_to_file):
+        raise FileNotFoundError(f"The file {path_to_file} does not exist.")
+    
+    # Check if the file is a docx file
+    if not path_to_file.endswith('.docx'):
+        raise ValueError(f"The file {path_to_file} is not a docx file.")
+    
+    #Creating a word file object
+    doc_object = open(path_to_file, "rb")
+            
+    #creating word reader object
+    doc_reader = Document(doc_object)
+    data = ""
+            
+    for p in doc_reader.paragraphs:
+        data += p.text+"\n\n"
+                
+    return data
 
 def run_discord_bot():
 
@@ -14,19 +36,53 @@ def run_discord_bot():
     bot = commands.Bot(command_prefix='!', intents=intents)
 
     token: str = os.getenv("DISCORD_TOKEN")
-    # Convert the channel IDs to integers
+
+    """ CHANNELS """
+
+    # GENERAL INFORMATION CHANNELS
     important_information_channel = int(os.getenv("IMPORTANT_INFORMATION_CHANNEL"))
-    exec_information_channel = int(os.getenv("EXEC_INFORMATION_CHANNEL"))
-    legislative_information_channel = int(os.getenv("LEGISLATIVE_INFORMATION_CHANNEL"))  
-    judicial_information_channel = int(os.getenv("JUDICIAL_INFORMATION_CHANNEL"))
+
+    # EXECUTIVE BRANCH CHANNELS
+    exec_branch_information_channel = int(os.getenv("EXEC_BRANCH_CHANNEL"))
+    nova_information_channel = int(os.getenv("NOVA_INFORMATION_CHANNEL"))
+    internal_affairs_information_channel = int(os.getenv("INTERNAL_AFFAIRS_INFORMATION_CHANNEL"))
+    external_affairs_information_channel = int(os.getenv("EXTERNAL_AFFAIRS_INFORMATION_CHANNEL"))
+    student_media_information_channel = int(os.getenv("STUDENT_MEDIA_INFORMATION_CHANNEL"))
+
+    # LEGISLATIVE BRANCH CHANNELS
+    legislative_branch_information_channel = int(os.getenv("LEGISLATIVE_BRANCH_CHANNEL"))  
     lec_information_channel  = int(os.getenv("LEC_INFORMATION_CHANNEL"))
     abc_information_channel = int(os.getenv("ABC_INFORMATION_CHANNEL"))
     acc_information_channel = int(os.getenv("ACC_INFORMATION_CHANNEL"))
     pec_information_channel = int(os.getenv("PEC_INFORMATION_CHANNEL"))
-    media_information_channel = int(os.getenv("MEDIA_INFORMATION_CHANNEL"))
 
-    print(f"important_information_channel: {important_information_channel}")
+    # JUDICIAL BRANCH CHANNELS
+    judicial_branch_information_channel = int(os.getenv("JUDICIAL_BRANCH_CHANNEL"))
+    judicial_information_channel = int(os.getenv("JUDICIAL_INFORMATION_CHANNEL"))
 
+    """ FILE PATHS """
+
+    # MEMBER LIST
+    workbook = openpyxl.load_workbook('files/member_list.xlsx')
+
+    # EXECUTIVE BRANCH DOCUMENTS
+    exec_information_document = get_data_from_word("files/exec/exec_info.docx")
+    nova_information_document = get_data_from_word("files/exec/nova_info.docx")
+    internal_affairs_information_document = get_data_from_word("files/exec/internal_affairs_info.docx")
+    external_affairs_information_document = get_data_from_word("files/exec/external_affairs_info.docx")
+    student_media_information_document = get_data_from_word("files/exec/student_media_info.docx")
+
+    # LEGISLATIVE BRANCH DOCUMENTS
+    legislative_branch_information_document = get_data_from_word("files/legislative/legislative_info.docx")
+    lec_information_document = get_data_from_word("files/legislative/lec_info.docx")
+    abc_information_document = get_data_from_word("files/legislative/abc_info.docx")
+    acc_information_document = get_data_from_word("files/legislative/acc_info.docx")
+    pec_information_document = get_data_from_word("files/legislative/pec_info.docx")
+
+    # JUDICIAL BRANCH DOCUMENTS
+    judicial_branch_information_document = get_data_from_word("files/judicial/judicial_branch_info.docx")
+    judicial_information_document = get_data_from_word("files/judicial/judicial_info.docx")
+    
     @bot.event
     async def on_ready():
         print(f'{bot.user} is now running!')
@@ -35,7 +91,6 @@ def run_discord_bot():
 
     @bot.command(name='positions_exec_board')
     async def positions_exec_board(ctx):
-        workbook = openpyxl.load_workbook('member_list.xlsx')
         sheet = workbook.active
         
         channel = bot.get_channel(important_information_channel)
@@ -53,7 +108,6 @@ def run_discord_bot():
 
     @bot.command(name='positions_exec_cabinet')
     async def positions_exec_cabinet(ctx):
-        workbook = openpyxl.load_workbook('member_list.xlsx')
         sheet = workbook.active
         
         channel = bot.get_channel(important_information_channel)
@@ -71,7 +125,6 @@ def run_discord_bot():
 
     @bot.command(name='positions_legislative')
     async def positions_legislative(ctx):
-        workbook = openpyxl.load_workbook('member_list.xlsx')
         sheet = workbook.active
 
         channel = bot.get_channel(important_information_channel)
@@ -89,7 +142,6 @@ def run_discord_bot():
 
     @bot.command(name='positions_judicial')
     async def positions_judicial(ctx):
-        workbook = openpyxl.load_workbook('member_list.xlsx')
         sheet = workbook.active
         
         channel = bot.get_channel(important_information_channel)
@@ -108,60 +160,81 @@ def run_discord_bot():
     
     """ INFORMATIONAL COMMANDS"""
 
+    # EXECUTIVE BRANCH COMMANDS
     @bot.command(name='branch_info_exec')
     async def branch_info_exec(ctx):
-        channel = bot.get_channel(exec_information_channel)
+        channel = bot.get_channel(exec_branch_information_channel)
 
-        formatted_text = f"The Student Government Association's (SGA) Executive Branch is comprised of the SGA Executive Board and the SGA Executive Cabinet.\n\nThe Florida Polytechnic University SGA Executive Board represents the executive authority of the Student Government Association, including in matters relating to the governance and wellbeing of the student body. They represent the student voice to the university administration and is comprised of the Student Body President, Vice President, Treasurer, and Chief of Staff.\n\nThe Florida Polytechnic University SGA Executive Cabinet assists the president in conduct of business dependent on their respective areas. Information about the departments can be found in their individual channels below, and information about the agencies can be found in their separate Discords, which can be found in the other-servers channel.\n\nStudent Body President email: sga-president@floridapoly.edu"
-        await channel.send(formatted_text)
+        await channel.send(exec_information_document)
+
+    @bot.command(name='nova_info')
+    async def nova_info(ctx):
+        channel = bot.get_channel(nova_information_channel)
+
+        await channel.send(nova_information_document)
+
+    @bot.command(name='internal_affairs_info')
+    async def internal_affairs_info(ctx):
+        channel = bot.get_channel(internal_affairs_information_channel)
+
+        await channel.send(internal_affairs_information_document)
+
+    @bot.command(name='external_affairs_info')
+    async def external_affairs_info(ctx):
+        channel = bot.get_channel(external_affairs_information_channel)
+
+        await channel.send(external_affairs_information_document)
+
+    @bot.command(name='student_media_info')
+    async def student_media_info(ctx):
+        channel = bot.get_channel(student_media_information_channel)
+
+        await channel.send(student_media_information_document)
+
+    # LEGISLATIVE BRANCH COMMANDS
 
     @bot.command(name='branch_info_legislative')
     async def branch_info_legislative(ctx):
-        channel = bot.get_channel(legislative_information_channel)
+        channel = bot.get_channel(legislative_branch_information_channel)
 
-        formatted_text = f"The Student Government Association's (SGA) Legislative Branch is comprised of the SGA General Senate, SGA Legislative Executive Committee (LEC), SGA Policies & Ethics Committee (PEC),  SGA Auditing & Budgeting Committee (ABC), and SGA Advocacy & Communications Committee (ACC).\n\nThe Florida Polytechnic University SGA General Senate is comprised of your elected Senators who draft legislation and create programs to enhance and enrich the experience of all students. Senate is made up of 15 total representatives that each represent different parts of the student body from On-Campus Representative to Freshman Representative to Engineering Representative.\n\nEach representative must be a member of at least one of the committees (PEC, ABC, ACC) as part of their duties as a senator. Those that are chairs of each committee must also take part in LEC. For more information on the different committees, and what they do, please refer to their respective channels below!\n\nLegislative Branch email: sga-senate@floridapoly.edu "
-        await channel.send(formatted_text)
-
-    @bot.command(name='branch_info_judicial')
-    async def branch_info_legislative(ctx):
-        channel = bot.get_channel(judicial_information_channel)
-
-        formatted_text = f"The Student Government Association's (SGA) Judicial Branch is comprised of the SGA Supreme Court and the SGA Office of Student Counsel.\n\nThe Florida Polytechnic University SGA Supreme Court represents the judicial authority of the Student Government Association, including in matters relating to the interpretation of the Constitution and related statutes. There are seven Justices on the Supreme Court, including the Chief Justice, Raking Justice, Senior Justice, and four Associate Justices.\n\nThe Florida Polytechnic University SGA Office of Student Counsel provides the student body access to professional counselors during court and administrative proceedings. The Office of Student Counsel provides assistance to students in matters pertaining to alleged Student Code of Conduct violations.\n\nJudicial Branch email: sga-judicial@floridapoly.edu"
-        await channel.send(formatted_text)
+        await channel.send(legislative_branch_information_document)
 
     @bot.command(name='branch_info_lec')
-    async def branch_info_lec(ctx):
+    async def lec_info(ctx):
         channel = bot.get_channel(lec_information_channel)
 
-        formatted_text = f"The Florida Polytechnic University SGA Legislative Executive Committee (LEC) is comprised of the SGA Senate President, SGA Senate Pro Tempore, and all Committee Chairs.\n\nLEC is where all senate chairs discuss important updates from their respective committees, progress on individual committee projects, as well as any issues that may have come up during their respective meetings that needs to be addressed.\n\nPotential issues that students are facing are brought to this committee, and LEC determines what direction the individual committees can take to address these concerns, either by finding resources or by determining possible solutions."
-        await channel.send(formatted_text)
+        await channel.send(lec_information_document)
 
-    @bot.command(name='branch_info_abc')
-    async def branch_info_abc(ctx):
+    @bot.command(name='abc_info')
+    async def abc_info(ctx):
         channel = bot.get_channel(abc_information_channel)
 
-        formatted_text = f""
-        await channel.send(formatted_text)
+        await channel.send(abc_information_document)
 
-    @bot.command(name='branch_info_acc')
-    async def branch_info_acc(ctx):
+    @bot.command(name='acc_info')
+    async def acc_info(ctx):
         channel = bot.get_channel(acc_information_channel)
 
-        formatted_text = f""
-        await channel.send(formatted_text)
+        await channel.send(acc_information_document)
 
-    @bot.command(name='branch_info_pec')
-    async def branch_info_pec(ctx):
+    @bot.command(name='pec_info')
+    async def pec_info(ctx):
         channel = bot.get_channel(pec_information_channel)
 
-        formatted_text = f""
-        await channel.send(formatted_text)
+        await channel.send(pec_information_document)
 
-    @bot.command(name='branch_info_media')
-    async def branch_info_media(ctx):
-        channel = bot.get_channel(media_information_channel)
+    # JUDICIAL BRANCH COMMANDS
 
-        formatted_text = f"The Florida Polytechnic University SGA Department of Student Media is comprised of the SGA Director of Student Media and additional deputies, such as the Deputy of Communication, the Deputy of Marketing, and the Deputy of Enforcement.\n\nThe Department of Student Media is responsible for ensuring that the student body is aware of SGA and SGA’s outreach to students, along with supporting media groups, on campus.\n\nThis department oversees any and all social media, as well as create flyers and merchandise, for SGA and RSOs."
-        await channel.send(formatted_text)
+    @bot.command(name='branch_info_judicial')
+    async def branch_info_judicial(ctx):
+        channel = bot.get_channel(judicial_branch_information_channel)
+
+        await channel.send(judicial_branch_information_document)
+
+    @bot.command(name='judicial_info')
+    async def judicial_info(ctx):
+        channel = bot.get_channel(judicial_information_channel)
+
+        await channel.send(judicial_information_document)
 
     bot.run(token)
