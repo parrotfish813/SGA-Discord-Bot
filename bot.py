@@ -11,7 +11,7 @@ def run_discord_bot():
     bot = commands.Bot(command_prefix='!', intents=intents)
 
     token = 'MTE3NDE0NjgxMjgxNTM2NDEwNg.GW696D.hOcf39cYqEHxxx5p8s4gpEnEHiSXkUe4zDneKY'
-    important_information_channel = 1174466121659859055
+    important_information_channel = 1175062419815538740
     exec_information_channel = 1151911705610289203
     legislative_information_channel = 1151912030828245062
     judicial_information_channel = 1151912235560615999
@@ -28,7 +28,7 @@ def run_discord_bot():
         
         channel = bot.get_channel(important_information_channel)
         
-        branch = f"**EXECUTIVE BOARD**\n-----------------------------------------------------------"
+        branch = f"-----------------------------------------------------------\n**EXECUTIVE BOARD**\n-----------------------------------------------------------"
         target_sheet_name = "executive_board"
 
         if target_sheet_name in workbook.sheetnames:
@@ -46,7 +46,7 @@ def run_discord_bot():
         
         channel = bot.get_channel(important_information_channel)
         
-        branch = f"**EXECUTIVE CABINET**\n-----------------------------------------------------------"
+        branch = f"-----------------------------------------------------------\n**EXECUTIVE CABINET**\n-----------------------------------------------------------"
         target_sheet_name = "executive_cabinet"
 
         if target_sheet_name in workbook.sheetnames:
@@ -64,7 +64,7 @@ def run_discord_bot():
 
         channel = bot.get_channel(important_information_channel)
 
-        branch = f"**LEGISLATIVE**\n-----------------------------------------------------------"
+        branch = f"-----------------------------------------------------------\n**LEGISLATIVE**\n-----------------------------------------------------------"
         target_sheet_name = "legislative"
 
         if target_sheet_name in workbook.sheetnames:
@@ -82,7 +82,7 @@ def run_discord_bot():
         
         channel = bot.get_channel(important_information_channel)
         
-        branch = f"**JUDICIAL**\n-----------------------------------------------------------"
+        branch = f"-----------------------------------------------------------\n**JUDICIAL**\n-----------------------------------------------------------"
         target_sheet_name = "judicial"
 
         if target_sheet_name in workbook.sheetnames:
