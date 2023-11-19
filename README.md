@@ -9,7 +9,7 @@ Synatax ```!positions_exec_board```
 ### Executive Commands
 **positions_exec_board** - Updates the executive board positions from the member_list.xlsx file.<br>
 **positions_exec_cabinet** - Updates the executive cabinet positions from the member_list.xlsx file.<br>
-**branch_info_exec** - Updates the branch information from the fomatted_text variable.<br>
+**branch_info_exec** - Updates the branch information from the cooresponding .docx file.<br>
 **nova_info** - Updates the department information from the cooresponding .docx file. <br>
 **internal_affairs_info** - Updates the department information from the cooresponding .docx file. <br>
 **external_affairs_info** - Updates the department information from the cooresponding .docx file. <br>
