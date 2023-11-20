@@ -1,8 +1,8 @@
 # SGA Discord Bot
 
 ## How to use commands
-Commands can only be used in the cooresponding channels. 
-Synatax ```!positions_exec_board```
+Commands should be used in the locked mod-channel, but can be used in any channel. This is because the message is locked to the cooresponding channel so it will only ever appear in the channel indicated in the code.<br>
+Command Synatax ```!positions_exec_board```
 
 ## How to update files
 In order to update the files, you first must download the zip file from Diva Hosting to get the most up to date versions of the files. Then you can update the files following thier current format. Once you have updated the files, you must put them into a .zip file and upload them to the 'Files' tab in Diva Hosting. Once the .zip file is uploaded, hit the 'Unarchive' button to unzip the file. This will update the files on the server. You can now delete the .zip file from the 'Files' tab.
