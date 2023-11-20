@@ -181,6 +181,23 @@ def run_discord_bot():
                 formatted_text = f"**{row[0]}:** {row[1]}"
                 await channel.send(formatted_text)
 
+    @bot.command(name='positions_lec')
+    async def positions_lec(ctx):
+        sheet = workbook.active
+
+        channel = bot.get_channel(important_information_channel)
+
+        branch = f"-----------------------------------------------------------\n**LEC**\n-----------------------------------------------------------"
+        target_sheet_name = "lec"
+
+        if target_sheet_name in workbook.sheetnames:
+            sheet = workbook[target_sheet_name]
+            await channel.send(branch)
+
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                formatted_text = f"**{row[0]}:** {row[1]}"
+                await channel.send(formatted_text)
+
     @bot.command(name='positions_judicial')
     async def positions_judicial(ctx):
         sheet = workbook.active
