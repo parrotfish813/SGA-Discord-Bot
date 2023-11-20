@@ -117,7 +117,7 @@ def run_discord_bot():
     # RULES COMMANDS
     @bot.command(name='rules')
     async def rules(ctx):
-        channel = bot.get_channel(1175909206541488208)
+        channel = bot.get_channel(rules_channel)
 
         await channel.send(rules_document)
 
