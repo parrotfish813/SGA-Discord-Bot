@@ -6,6 +6,9 @@ Synatax ```!positions_exec_board```
 
 ## Function List
 
+### General Commands 
+**rules** - Posts the server rules from the rules document <br>
+
 ### Executive Commands
 **positions_exec_board** - Updates the executive board positions from the member_list.xlsx file.<br>
 **positions_exec_cabinet** - Updates the executive cabinet positions from the member_list.xlsx file.<br>
