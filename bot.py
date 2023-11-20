@@ -58,10 +58,16 @@ def run_discord_bot():
 
     token: str = os.getenv("DISCORD_TOKEN")
 
+    """ MESSAGES """
+    roles_message = int(os.getenv("ROLES_MESSAGE"))
+
     """ CHANNELS """
 
     # RULES CHANNEL 
     rules_channel = int(os.getenv("RULES_CHANNEL"))
+
+    # ROLES CHANNEL 
+    roles_channel = int(os.getenv("ROLES_CHANNEL"))
 
     # GENERAL INFORMATION CHANNELS
     important_information_channel = int(os.getenv("IMPORTANT_INFORMATION_CHANNEL"))
@@ -83,6 +89,7 @@ def run_discord_bot():
     # JUDICIAL BRANCH CHANNELS
     judicial_branch_information_channel = int(os.getenv("JUDICIAL_BRANCH_CHANNEL"))
     judicial_information_channel = int(os.getenv("JUDICIAL_INFORMATION_CHANNEL"))
+
 
     """ FILE PATHS """
 
